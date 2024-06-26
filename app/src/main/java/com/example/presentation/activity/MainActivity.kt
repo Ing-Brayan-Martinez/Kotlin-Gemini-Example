@@ -1,4 +1,4 @@
-package com.example
+package com.example.presentation.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,7 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.ui.theme.KotlinGeminiExampleTheme
+import com.example.presentation.theme.KotlinGeminiExampleTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
