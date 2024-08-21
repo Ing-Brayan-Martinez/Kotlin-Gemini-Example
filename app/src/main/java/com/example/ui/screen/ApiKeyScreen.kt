@@ -21,12 +21,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.domain.viewmodel.ApiKeyViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
-fun ScaffoldApiKey() {
+fun ScaffoldApiKey(viewModel: ApiKeyViewModel? = null) {
     var presses by remember { mutableIntStateOf(0) }
 
     Scaffold(

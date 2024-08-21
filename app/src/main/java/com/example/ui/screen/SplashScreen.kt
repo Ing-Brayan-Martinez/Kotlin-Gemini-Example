@@ -21,11 +21,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.domain.viewmodel.SplashViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
-fun ScaffoldSplash() {
+fun ScaffoldSplash(viewModel: SplashViewModel? = null) {
     var presses by remember { mutableIntStateOf(0) }
 
     Scaffold(

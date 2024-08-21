@@ -7,6 +7,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.domain.viewmodel.ApiKeyViewModel
+import com.example.domain.viewmodel.ChatViewModel
+import com.example.domain.viewmodel.SplashViewModel
 import com.example.ui.screen.ScaffoldApiKey
 import com.example.ui.screen.ScaffoldChat
 import com.example.ui.screen.ScaffoldSplash
@@ -26,17 +29,20 @@ class MainActivity : ComponentActivity() {
                 ) {
                     // Splash
                     composable("splash") {
-                        ScaffoldSplash()
+                        val splashViewModel = SplashViewModel(applicationContext, navController)
+                        ScaffoldSplash(splashViewModel)
                     }
 
                     // Api Key
                     composable("api-key") {
-                        ScaffoldApiKey()
+                        val apiKeyViewModel = ApiKeyViewModel(applicationContext, navController)
+                        ScaffoldApiKey(apiKeyViewModel)
                     }
 
                     // Chat
                     composable("chat") {
-                        ScaffoldChat()
+                        val chatViewModel = ChatViewModel(applicationContext, navController)
+                        ScaffoldChat(chatViewModel)
                     }
                 }
 
