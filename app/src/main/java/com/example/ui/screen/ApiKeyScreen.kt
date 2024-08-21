@@ -1,4 +1,4 @@
-package com.example.presentation.screen
+package com.example.ui.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,10 +22,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
-fun ScaffoldSplash() {
+fun ScaffoldApiKey() {
     var presses by remember { mutableIntStateOf(0) }
 
     Scaffold(
@@ -36,17 +37,12 @@ fun ScaffoldSplash() {
                     titleContentColor = MaterialTheme.colorScheme.primary,
                 ),
                 title = {
-                    Text("Splash Screen")
+                    Text("API Key Screen")
                 }
             )
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = {
-//                this.startActivity(
-//                    Intent(this, ApiKeyActivity::class.java)
-//                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-//                )
-            }) {
+            FloatingActionButton(onClick = { presses++ }) {
                 Icon(Icons.Default.Add, contentDescription = "Add")
             }
         }
@@ -54,7 +50,8 @@ fun ScaffoldSplash() {
         Column(
             modifier = Modifier
                 .padding(innerPadding),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement
+                .spacedBy(16.dp),
         ) {
             Text(
                 modifier = Modifier.padding(8.dp),

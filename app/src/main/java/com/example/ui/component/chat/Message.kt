@@ -1,4 +1,4 @@
-package com.example.presentation.component.chat
+package com.example.ui.component.chat
 
 import androidx.compose.runtime.Composable
 

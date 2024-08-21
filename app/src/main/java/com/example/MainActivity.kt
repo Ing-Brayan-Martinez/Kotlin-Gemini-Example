@@ -7,10 +7,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.presentation.screen.ScaffoldApiKey
-import com.example.presentation.screen.ScaffoldChat
-import com.example.presentation.screen.ScaffoldSplash
-import com.example.presentation.theme.KotlinGeminiExampleTheme
+import com.example.ui.screen.ScaffoldApiKey
+import com.example.ui.screen.ScaffoldChat
+import com.example.ui.screen.ScaffoldSplash
+import com.example.ui.theme.KotlinGeminiExampleTheme
 
 class MainActivity : ComponentActivity() {
 
