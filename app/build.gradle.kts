@@ -23,20 +23,25 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
+            buildConfigField("boolean", "IS_TESTING", "false")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
+        debug {
+            buildConfigField("boolean", "IS_TESTING", "true")
+        }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     composeOptions {
@@ -52,63 +57,51 @@ android {
 dependencies {
 
     // Core
+    implementation(platform(libs.androidx.compose.bom))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.material)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
     implementation(libs.androidx.activity)
+    implementation(libs.androidx.activity.compose)
+
 
     // AI
-    implementation("com.google.ai.client.generativeai:generativeai:0.8.0")
+    implementation(libs.generativeai)
 
-    val nav_version = "2.7.7"
-
-    implementation("androidx.navigation:navigation-compose:$nav_version")
-
-
-    val lifecycle_version = "2.8.2"
-    val arch_version = "2.2.0"
+    // Navigation
+    implementation(libs.androidx.navigation.compose)
 
     // ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.4")
     // ViewModel utilities for Compose
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.4")
     // LiveData
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.4")
     // Lifecycles only (without ViewModel or LiveData)
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.4")
     // Lifecycle utilities for Compose
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:$lifecycle_version")
-
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.4")
     // Saved state module for ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version")
-
-    // Annotation processor
-    //kapt("androidx.lifecycle:lifecycle-compiler:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.4")
     // alternately - if using Java8, use the following instead of lifecycle-compiler
-    implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycle_version")
-
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.8.4")
     // optional - helpers for implementing LifecycleOwner in a Service
-    implementation("androidx.lifecycle:lifecycle-service:$lifecycle_version")
-
+    implementation("androidx.lifecycle:lifecycle-service:2.8.4")
     // optional - ProcessLifecycleOwner provides a lifecycle for the whole application process
-    implementation("androidx.lifecycle:lifecycle-process:$lifecycle_version")
-
+    implementation("androidx.lifecycle:lifecycle-process:2.8.4")
     // optional - ReactiveStreams support for LiveData
-    implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:2.8.4")
 
-    // optional - Test helpers for LiveData
-    testImplementation("androidx.arch.core:core-testing:$arch_version")
-
-    // optional - Test helpers for Lifecycle runtime
-    testImplementation("androidx.lifecycle:lifecycle-runtime-testing:$lifecycle_version")
-
+    // RxKotlin
+    implementation("io.reactivex.rxjava3:rxandroid:3.0.2")
+    implementation("io.reactivex.rxjava3:rxkotlin:3.0.1")
+    implementation("io.reactivex.rxjava3:rxjava:3.1.9")
 
     // Test
     testImplementation(libs.junit)
@@ -116,6 +109,10 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+    // optional - Test helpers for LiveData
+    testImplementation(libs.androidx.core.testing)
+    // optional - Test helpers for Lifecycle runtime
+    testImplementation(libs.androidx.lifecycle.runtime.testing)
 
     // Debug
     debugImplementation(libs.androidx.ui.tooling)
