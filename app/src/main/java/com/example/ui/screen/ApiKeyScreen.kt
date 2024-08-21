@@ -27,7 +27,7 @@ import com.example.domain.viewmodel.ApiKeyViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
-fun ScaffoldApiKey(viewModel: ApiKeyViewModel? = null) {
+fun ApiKeyScreen(viewModel: ApiKeyViewModel? = null) {
     var presses by remember { mutableIntStateOf(0) }
 
     Scaffold(

@@ -10,9 +10,9 @@ import androidx.navigation.compose.rememberNavController
 import com.example.domain.viewmodel.ApiKeyViewModel
 import com.example.domain.viewmodel.ChatViewModel
 import com.example.domain.viewmodel.SplashViewModel
-import com.example.ui.screen.ScaffoldApiKey
-import com.example.ui.screen.ScaffoldChat
-import com.example.ui.screen.ScaffoldSplash
+import com.example.ui.screen.ApiKeyScreen
+import com.example.ui.screen.ChatScreen
+import com.example.ui.screen.SplashScreen
 import com.example.ui.theme.KotlinGeminiExampleTheme
 
 class MainActivity : ComponentActivity() {
@@ -30,19 +30,19 @@ class MainActivity : ComponentActivity() {
                     // Splash
                     composable("splash") {
                         val splashViewModel = SplashViewModel(applicationContext, navController)
-                        ScaffoldSplash(splashViewModel)
+                        SplashScreen(splashViewModel)
                     }
 
                     // Api Key
                     composable("api-key") {
                         val apiKeyViewModel = ApiKeyViewModel(applicationContext, navController)
-                        ScaffoldApiKey(apiKeyViewModel)
+                        ApiKeyScreen(apiKeyViewModel)
                     }
 
                     // Chat
                     composable("chat") {
                         val chatViewModel = ChatViewModel(applicationContext, navController)
-                        ScaffoldChat(chatViewModel)
+                        ChatScreen(chatViewModel)
                     }
                 }
 
