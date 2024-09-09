@@ -18,12 +18,26 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        // para las anotaciones de los modelos de rom ORM
+//        javaCompileOptions {
+//            annotationProcessorOptions {
+//                arguments {
+//                    var map = mutableMapOf<String, String>();
+//                    map["room.schemaLocation"] = "$projectDir/squemes";
+//                    map["room.incremental"] = "true";
+//                    map["room.expandProjection"] = "true";
+//                    return map;
+//                }
+//            }
+//        }
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
             buildConfigField("boolean", "IS_TESTING", "false")
+            buildConfigField("String", "LOG_TAG", "\"PRUEBA\"")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -31,6 +45,7 @@ android {
         }
         debug {
             buildConfigField("boolean", "IS_TESTING", "true")
+            buildConfigField("String", "LOG_TAG", "\"PRUEBA TESTING\"")
         }
     }
     compileOptions {
@@ -57,19 +72,23 @@ android {
 dependencies {
 
     // Core
-    implementation(platform(libs.androidx.compose.bom))
-
     implementation(libs.androidx.core.ktx)
+
+    // Compose
+    implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.material)
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.activity.compose)
 
+    // UI
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling.preview)
+
+    // Material 3
+    implementation(libs.material)
+    implementation(libs.androidx.material3)
 
     // AI
     implementation(libs.generativeai)
@@ -103,6 +122,15 @@ dependencies {
     implementation("io.reactivex.rxjava3:rxkotlin:3.0.1")
     implementation("io.reactivex.rxjava3:rxjava:3.1.9")
 
+    // Room
+    implementation("androidx.room:room-runtime:2.6.1")
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:2.6.1")
+    // optional - RxJava3 support for Room
+    implementation("androidx.room:room-rxjava3:2.6.1")
+    // optional - Kotlin Extensions and Coroutines support for Room
+    annotationProcessor("androidx.room:room-compiler:2.6.1")
+
     // Test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -113,6 +141,8 @@ dependencies {
     testImplementation(libs.androidx.core.testing)
     // optional - Test helpers for Lifecycle runtime
     testImplementation(libs.androidx.lifecycle.runtime.testing)
+    // optional - Test helpers
+    testImplementation("androidx.room:room-testing:2.6.1")
 
     // Debug
     debugImplementation(libs.androidx.ui.tooling)

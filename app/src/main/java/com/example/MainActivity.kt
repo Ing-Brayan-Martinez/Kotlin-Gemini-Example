@@ -29,19 +29,22 @@ class MainActivity : ComponentActivity() {
                 ) {
                     // Splash
                     composable("splash") {
-                        val splashViewModel = SplashViewModel(applicationContext, navController)
+                        val splashViewModel =
+                            SplashViewModel(applicationContext, navController)
                         SplashScreen(splashViewModel)
                     }
 
                     // Api Key
                     composable("api-key") {
-                        val apiKeyViewModel = ApiKeyViewModel(applicationContext, navController)
+                        val apiKeyViewModel =
+                            ApiKeyViewModel(applicationContext, navController)
                         ApiKeyScreen(apiKeyViewModel)
                     }
 
                     // Chat
                     composable("chat") {
-                        val chatViewModel = ChatViewModel(applicationContext, navController)
+                        val chatViewModel =
+                            ChatViewModel(applicationContext, navController)
                         ChatScreen(chatViewModel)
                     }
                 }
