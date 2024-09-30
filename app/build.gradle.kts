@@ -35,7 +35,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             buildConfigField("boolean", "IS_TESTING", "false")
             buildConfigField("String", "LOG_TAG", "\"PRUEBA\"")
             proguardFiles(
@@ -44,10 +44,12 @@ android {
             )
         }
         debug {
+            isMinifyEnabled = false
             buildConfigField("boolean", "IS_TESTING", "true")
             buildConfigField("String", "LOG_TAG", "\"PRUEBA TESTING\"")
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17

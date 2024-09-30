@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -29,6 +30,10 @@ import com.example.domain.viewmodel.ApiKeyViewModel
 @Composable
 fun ApiKeyScreen(viewModel: ApiKeyViewModel? = null) {
     var presses by remember { mutableIntStateOf(0) }
+
+    LaunchedEffect(Unit) {
+
+    }
 
     Scaffold(
         topBar = {
