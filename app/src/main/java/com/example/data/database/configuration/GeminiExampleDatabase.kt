@@ -4,6 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.example.data.database.converter.BigDecimalConverter
+import com.example.data.database.converter.BooleanConverter
+import com.example.data.database.converter.LocalDateConverter
+import com.example.data.database.converter.LocalDateTimeConverter
 import com.example.data.database.repository.DeviceRepository
 import com.example.domain.model.Device
 
@@ -13,7 +18,15 @@ import com.example.domain.model.Device
         Device::class
     ], version = 1
 )
-abstract class GeminiExampleDatabase private constructor() : RoomDatabase() {
+@TypeConverters(
+    value = [
+        BigDecimalConverter::class,
+        BooleanConverter::class,
+        LocalDateConverter::class,
+        LocalDateTimeConverter::class
+    ]
+)
+abstract class GeminiExampleDatabase : RoomDatabase() {
     companion object {
         @Volatile
         private var INSTANCE: GeminiExampleDatabase? = null

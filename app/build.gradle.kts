@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
@@ -18,19 +19,6 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-
-        // para las anotaciones de los modelos de rom ORM
-//        javaCompileOptions {
-//            annotationProcessorOptions {
-//                arguments {
-//                    var map = mutableMapOf<String, String>();
-//                    map["room.schemaLocation"] = "$projectDir/squemes";
-//                    map["room.incremental"] = "true";
-//                    map["room.expandProjection"] = "true";
-//                    return map;
-//                }
-//            }
-//        }
     }
 
     buildTypes {
@@ -132,6 +120,8 @@ dependencies {
     implementation("androidx.room:room-rxjava3:2.6.1")
     // optional - Kotlin Extensions and Coroutines support for Room
     annotationProcessor("androidx.room:room-compiler:2.6.1")
+    // optional - Kotlin annotation processing for Room
+    kapt("androidx.room:room-compiler:2.6.1")
 
     // Test
     testImplementation(libs.junit)

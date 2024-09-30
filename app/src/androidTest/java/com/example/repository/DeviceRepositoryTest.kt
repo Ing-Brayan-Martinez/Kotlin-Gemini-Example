@@ -46,7 +46,7 @@ class DeviceRepositoryTest {
 
         deviceRepository.insert(device)
 
-        val result: Device = deviceRepository.findById(1)
+        val result: Device = deviceRepository.findById(1).get()
         Log.d(LOG_TAG, result.toString())
 
         assertNotEquals(null, result.deviceID)

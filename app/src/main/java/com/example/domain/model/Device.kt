@@ -6,13 +6,13 @@ import java.time.LocalDateTime
 
 @Entity(tableName = "Device")
 data class Device(
-    @PrimaryKey(autoGenerate = true)
-    val deviceID: Int? = null,
+    @PrimaryKey(autoGenerate = false)
+    val deviceID: String,
     val isActive: Boolean,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime,
     val name: String,
     val code: String,
     val status: String,
-    val passKeyID: String
+    val passKeyID: String? = null
 )

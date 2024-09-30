@@ -1,5 +1,7 @@
 package com.example.ui.screen
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -28,15 +32,49 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.R
+import com.example.domain.model.Device
 import com.example.domain.viewmodel.SplashViewModel
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.schedulers.Schedulers
 
+
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Preview(showBackground = true)
 @Composable
 fun SplashScreen(viewModel: SplashViewModel? = null) {
     var isLoading by remember { mutableStateOf(true) }
+    var shouldShowDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-        viewModel?.getDeviceStatus()
+        Observable.just(true)
+            .subscribeOn(Schedulers.newThread())
+            .map { viewModel?.getDeviceStatus()!! }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                val device: Device? = it
+
+                if (device != null) {
+                    isLoading = false
+                    viewModel?.navigateToApiKey()
+                } else {
+                    shouldShowDialog = true
+                }
+            },
+                // Manejar el error
+                { error ->
+                    shouldShowDialog = true
+                }
+            )
+    }
+
+    if (shouldShowDialog) {
+        MyAlertDialog(
+            shouldShowDialog = shouldShowDialog,
+            fn = {
+                shouldShowDialog = it
+            }
+        )
     }
 
     Scaffold(
@@ -94,4 +132,31 @@ fun SplashScreen(viewModel: SplashViewModel? = null) {
             }
         }
     )
+}
+
+
+@Composable
+fun MyAlertDialog(shouldShowDialog: Boolean, fn: (Boolean) -> Unit) {
+    if (shouldShowDialog) { // 2
+        AlertDialog( // 3
+            onDismissRequest = { // 4
+                fn(false)
+            },
+            // 5
+            title = { Text(text = "Alert Dialog") },
+            text = { Text(text = "Jetpack Compose Alert Dialog") },
+            confirmButton = { // 6
+                Button(
+                    onClick = {
+                        fn(false)
+                    }
+                ) {
+                    Text(
+                        text = "Confirm",
+                        color = Color.White
+                    )
+                }
+            }
+        )
+    }
 }
