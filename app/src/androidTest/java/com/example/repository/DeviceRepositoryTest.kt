@@ -12,6 +12,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.time.LocalDateTime
+import java.util.UUID
 
 
 @RunWith(AndroidJUnit4::class)
@@ -32,9 +33,10 @@ class DeviceRepositoryTest {
     @Test
     fun insertDevice() {
         val deviceRepository = geminiExampleDatabase.deviceRepository()
+        val deviceID = UUID.randomUUID().toString()
 
         val device = Device(
-            deviceID = null,
+            deviceID = deviceID,
             isActive = true,
             createdAt = LocalDateTime.now(),
             updatedAt = LocalDateTime.now(),
@@ -46,9 +48,20 @@ class DeviceRepositoryTest {
 
         deviceRepository.insert(device)
 
-        val result: Device = deviceRepository.findById(1).get()
+        val result: Device = deviceRepository.findById(deviceID).get()
         Log.d(LOG_TAG, result.toString())
 
         assertNotEquals(null, result.deviceID)
+    }
+
+    @Test
+    fun findAllDevice() {
+        val deviceRepository = geminiExampleDatabase.deviceRepository()
+
+        val list: List<Device> = deviceRepository.findAll()
+
+        Log.d(LOG_TAG, list.toString())
+
+        assertNotEquals(null, list.first())
     }
 }

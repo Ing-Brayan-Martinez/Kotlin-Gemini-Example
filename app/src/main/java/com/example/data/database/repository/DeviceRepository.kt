@@ -22,12 +22,12 @@ interface DeviceRepository {
     @Delete
     fun delete(entity: Device)
 
-    @Query("SELECT * FROM Device WHERE isActive=1")
+    @Query("SELECT * FROM Device WHERE isActive='Y'")
     fun findAll(): List<Device>
 
-    @Query("SELECT * FROM Device WHERE deviceID=:deviceId AND isActive=1")
+    @Query("SELECT * FROM Device WHERE deviceID=:deviceId AND isActive='Y'")
     fun findById(deviceId: String): Optional<Device>
 
-    @Query("SELECT * FROM Device WHERE name=:name AND code=:code AND isActive=1")
+    @Query("SELECT * FROM Device WHERE name=:name AND code=:code AND isActive='Y'")
     fun findDefaultDevice(name: String, code: String): Optional<Device>
 }
