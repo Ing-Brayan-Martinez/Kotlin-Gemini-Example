@@ -37,6 +37,7 @@ import com.example.domain.viewmodel.SplashViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -56,7 +57,12 @@ fun SplashScreen(viewModel: SplashViewModel? = null) {
 
                 if (device != null) {
                     isLoading = false
-                    viewModel?.navigateToApiKey()
+
+                    Observable.just(true)
+                        .delay(500, TimeUnit.MILLISECONDS)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe { viewModel?.navigateToApiKey() }
+
                 } else {
                     shouldShowDialog = true
                 }
