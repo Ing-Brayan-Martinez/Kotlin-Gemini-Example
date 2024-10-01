@@ -1,5 +1,6 @@
 package com.example.ui.screen
 
+import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
@@ -40,6 +41,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 
+@SuppressLint("CheckResult")
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Preview(showBackground = true)
 @Composable
@@ -75,7 +77,7 @@ fun SplashScreen(viewModel: SplashViewModel? = null) {
     }
 
     if (shouldShowDialog) {
-        MyAlertDialog(
+        ErrorStartAppDialog(
             shouldShowDialog = shouldShowDialog,
             fn = {
                 shouldShowDialog = it
@@ -83,85 +85,89 @@ fun SplashScreen(viewModel: SplashViewModel? = null) {
         )
     }
 
-    Scaffold(
+    return Scaffold(
         content = { padding ->
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(padding),
                 //verticalArrangement = Arrangement.Center, // Centrar verticalmente
-                horizontalAlignment = Alignment.CenterHorizontally // Centrar horizontalmente
-            ) {
-                Spacer(modifier = Modifier.height(100.dp))
-                Row(
-                    modifier = Modifier
-                        .padding(16.dp)
-                ) {
-                    Text("Splash Screen", fontSize = 24.sp)
-                }
-                Spacer(modifier = Modifier.height(100.dp))
-                Box(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .size(200.dp), // Tamaño del contenedor para el logo
-                    contentAlignment = Alignment.Center
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.gemini),
-                        contentDescription = "Logo de la app",
-                        modifier = Modifier.size(200.dp)
+                horizontalAlignment = Alignment.CenterHorizontally, // Centrar horizontalmente
+                content = {
+                    Spacer(modifier = Modifier.height(100.dp))
+                    Row(
+                        modifier = Modifier
+                            .padding(16.dp),
+                        content = {
+                            Text("Splash Screen", fontSize = 24.sp)
+                        }
+                    )
+                    Spacer(modifier = Modifier.height(100.dp))
+                    Box(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .size(200.dp), // Tamaño del contenedor para el logo
+                        contentAlignment = Alignment.Center,
+                        content = {
+                            Image(
+                                painter = painterResource(id = R.drawable.gemini),
+                                contentDescription = "Logo de la app",
+                                modifier = Modifier.size(200.dp)
+                            )
+                        }
+                    )
+                    Spacer(modifier = Modifier.height(150.dp))
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        contentAlignment = Alignment.Center,
+                        content = {
+                            if (isLoading) {
+                                LinearProgressIndicator(
+                                    color = Color.Black,
+                                    trackColor = Color.LightGray,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(10.dp)
+                                )
+                            } else {
+                                Text(
+                                    text = "Carga completada",
+                                    fontWeight = FontWeight(weight = 600),
+                                    modifier = Modifier.align(Alignment.Center)
+                                )
+                            }
+                        }
                     )
                 }
-                Spacer(modifier = Modifier.height(150.dp))
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    if (isLoading) {
-                        LinearProgressIndicator(
-                            color = Color.Black,
-                            trackColor = Color.LightGray,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(10.dp)
-                        )
-                    } else {
-                        Text(
-                            text = "Carga completada",
-                            fontWeight = FontWeight(weight = 600),
-                            modifier = Modifier.align(Alignment.Center)
-                        )
-                    }
-                }
-            }
+            )
         }
     )
 }
 
 
 @Composable
-fun MyAlertDialog(shouldShowDialog: Boolean, fn: (Boolean) -> Unit) {
-    if (shouldShowDialog) { // 2
-        AlertDialog( // 3
-            onDismissRequest = { // 4
+fun ErrorStartAppDialog(shouldShowDialog: Boolean, fn: (Boolean) -> Unit) {
+    if (shouldShowDialog) {
+        AlertDialog(
+            onDismissRequest = {
                 fn(false)
             },
-            // 5
             title = { Text(text = "Alert Dialog") },
             text = { Text(text = "Jetpack Compose Alert Dialog") },
             confirmButton = { // 6
                 Button(
                     onClick = {
                         fn(false)
+                    },
+                    content = {
+                        Text(
+                            text = "Confirm",
+                            color = Color.White
+                        )
                     }
-                ) {
-                    Text(
-                        text = "Confirm",
-                        color = Color.White
-                    )
-                }
+                )
             }
         )
     }
